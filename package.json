@@ -1,0 +1,31 @@
+{
+  "name": "members1st-api",
+  "version": "1.0.0",
+  "description": "Back-end api designed to take in a json file and expose endpoints to filter and return data.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "skeet": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericc97/api-practice-mem1st.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericc97/api-practice-mem1st/issues"
+  },
+  "homepage": "https://github.com/ericc97/api-practice-mem1st#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "lodash.where": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
+  }
+}
