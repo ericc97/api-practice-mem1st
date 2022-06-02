@@ -11,7 +11,7 @@ const transactionController = {
 	getTransaction(req, res) {
 		// Get query params object from req
 		const queryObj = req.query
-		console.log('queryObj: ', queryObj);
+		// console.log('queryObj: ', queryObj);
 	
 		let transactions = []
 
@@ -27,8 +27,8 @@ const transactionController = {
 
 		// Get key and value from query parameters
 	  for (const key in queryObj) {
-			console.log('value: ', queryObj[key]);
-			console.log('key', key)
+			// console.log('value: ', queryObj[key]);
+			// console.log('key', key)
 			let value = queryObj[key];
 		
 			// Config and set start/end date from query params if given
@@ -58,7 +58,7 @@ const transactionController = {
 		
 		// Check/log ID's of all transactions
 		const IDs = [...new Set(transactions.map(data => data.Id))]
-		console.log('IDs: ', IDs);
+		// console.log('IDs: ', IDs);
 
 		// Set new array to push filtered data into
 		let result = []
