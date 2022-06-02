@@ -1,101 +1,77 @@
-const file = './model/transactions.json';
-const fs = require('fs');
-const where = require('lodash.where')
-const json = require('../model/transactions.json')
-
-// Create function to read file and 
-const readFile = (
-	callback,
-	returnJson = false,
-	filePath = file,
-	encoding = 'utf8'
-) => {
-	fs.readFile(filePath, encoding, (err, data) => {
-		if (err) {
-			throw err;
-		}
-		callback(returnJson ? JSON.parse(data) : data)
-	})
-};
+const json = require('../model/transactions.json');
 
 
 const transactionController = {
-	async getAll(req, res) {
-		readFile(data => {
-			res.send(data)
-		}, true)
+	// Initial query to gather all transactions
+	getAll(req, res) {
+		res.send(json)
 	},
 
-	async getByID(req, res) {
-		console.log('req: ', req);
-		// Get id number from url
-		const id = req.query.id
-		readFile(data => {
-			let result = where(data, { "Id": id })
-			res.send(result)
-			
-		}, true)
-	},
-
-	getByAcct(req, res) {
-		console.log('req: ', req);
-		
-		// Get account number from url
-		const acct = req.query.acct
-		console.log('acct: ', acct);
-
-		readFile(data => {
-			let result = where(data, { "AccountNumber": acct });
-			res.send(result)
-		}, true)
-	},
-
+	// Function to handle all query parameters
 	getTransaction(req, res) {
+		// Get query params object from req
 		const queryObj = req.query
 		console.log('queryObj: ', queryObj);
-
+	
 		let transactions = []
 
 		let effectiveStartDate;
 		let effectiveEndDate;
 		
+		// if queryObj is empty respond with 400 code
+		if (JSON.stringify(queryObj) === '{}'){
+			res.status(400).json({
+				error: `At least one tag must be provided`
+			})
+		}
+
+		// Get key and value from query parameters
 	  for (const key in queryObj) {
+			console.log('value: ', queryObj[key]);
+			console.log('key', key)
 			let value = queryObj[key];
-			
+		
+			// Config and set start/end date from query params if given
 			if (key.includes('EffectiveDate')) {
 				if (key === 'EffectiveDateStart') {
 					effectiveStartDate = new Date(value)
-					continue
+					continue;
 				}
 				if (key === 'EffectiveDateEnd') {
 					effectiveEndDate = new Date(value)
-					continue
+					continue;
 				}
 			}
 			
+			// Filter transaction data for matching key and values
 			const transaction = json.filter(data => String(data[key]) === String(value))[0]
 			
+			// Push filtered data to transactions array
 			transactions.push(transaction)
 		}
-
+		// Filter transaction data within given dates
 		let rangeResult = json.filter(data => {
 			const date = new Date(data.EffectiveDate)
 			return (date >= effectiveStartDate && date <= effectiveEndDate)
 		})
 		
+		
+		// Check/log ID's of all transactions
 		const IDs = [...new Set(transactions.map(data => data.Id))]
 		console.log('IDs: ', IDs);
 
+		// Set new array to push filtered data into
 		let result = []
 
+		// Check for unique ID's then push filtered transaction data into result
 		IDs.forEach(id => {
 			result.push(transactions.filter(data => data.Id === id)[0])
 		});
 
-
+		// Return result and rangeResult
 		res.json([...result, ...rangeResult])
 	}
 }
 
-
+// Export methods
 module.exports = transactionController
