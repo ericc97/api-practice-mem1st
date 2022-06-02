@@ -73,5 +73,5 @@ const transactionController = {
 	}
 }
 
-// Export methods
+// Export transactionController methods
 module.exports = transactionController

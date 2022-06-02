@@ -19,7 +19,7 @@ Users may access the API via an API client software such as Postman or Insomnia.
 ![Screenshot](./img/members1st-api-screenshot.png)
 
 ## Testing
-Testing was carried our via Jest. Tests we're used to ensure that the API returned the expected responses for various use cases. In order to run Jest tests within the application, you must ensure that `Jest` and `SuperTest` have been installed. Once in the root directory, run the command `npm run test`
+Testing was carried out via Jest. Tests we're used to ensure that the API returned the expected responses for various queries. In order to run Jest tests within the application, you must ensure that `Jest` and `SuperTest` have been installed. Once in the root directory, run the command `npm run test`
 
 ## Technologies
 For this API I utilized a multitude of packages. `Nodemon` and `Morgan` were used to restart the server seamlessly during code updates. Morgan was used to verify what requests were being sent as well as the response from the API for the given request. `Jest` was the testing framework and `Insomnia` was the API client I used. 
