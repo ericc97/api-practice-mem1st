@@ -25,9 +25,9 @@ const transactionController = {
 			})
 		}
 
-		// Get key and value from query parameters
+		// Get key and value from query parameters 
 	  for (const key in queryObj) {
-			// console.log('value: ', queryObj[key]);
+			console.log('value: ', queryObj[key]);
 			// console.log('key', key)
 			let value = queryObj[key];
 		
@@ -56,7 +56,7 @@ const transactionController = {
 		})
 		
 		
-		// Check/log ID's of all transactions
+		// Check/log ID's of all transactions. Use Set to store unique values
 		const IDs = [...new Set(transactions.map(data => data.Id))]
 		// console.log('IDs: ', IDs);
 
